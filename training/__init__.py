@@ -60,15 +60,7 @@ def get_loss_obj(cfg: Config) -> loss.BaseLoss:
         warnings.warn("'WeightedNSE loss has been removed. Use 'NSE' with 'target_loss_weights'", FutureWarning)
         loss_obj = loss.MaskedNSELoss(cfg)
     elif cfg.loss.lower() == "rmse":
-        loss_obj = loss.MaskedRMSELoss(cfg)
-    elif cfg.loss.lower() == "gmmloss":
-        loss_obj = loss.MaskedGMMLoss(cfg)
-    elif cfg.loss.lower() == "cmalloss":
-        loss_obj = loss.MaskedCMALLoss(cfg)
-    elif cfg.loss.lower() == "umalloss":
-        loss_obj = loss.MaskedUMALLoss(cfg)
-    elif cfg.loss.lower() == "newloss":
-        loss_obj = loss.MaskedNewLoss(cfg, p=1.0)   
+        loss_obj = loss.MaskedRMSELoss(cfg)   
     elif cfg.loss.lower() == "metaloss":
         loss_obj = loss.MaskedMETALoss(cfg) 
     elif cfg.loss.lower() == "customloss":
