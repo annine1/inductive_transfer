@@ -8,14 +8,13 @@ class IncreaseTemp():
     
     def call(self, X_batch):
         temp_increase = torch.randint(1, 4, (X_batch.size(0), 1, 1)).float()  
-        # X_batch[:192, :, 7:10] += temp_increase       # 7:10 = temp_feature_index
-        X_batch[:, :, 7:10] += temp_increase
+        X_batch[:, :, temp_feature_index] += temp_increase
         
         return X_batch
     
     def call_us(self, X_batch):
         temp_increase = torch.randint(1, 4, (X_batch.size(0), 1, 1)).float()  
-        X_batch[:, :, 5:11] += temp_increase
+        X_batch[:, :, temp_feature_index] += temp_increase
         
         return X_batch
     

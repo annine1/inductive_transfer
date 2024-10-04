@@ -37,21 +37,17 @@ class CMixup():
         return each_rate    
 
     def callxs(self, X, y):
-        # print("2d:",X.shape)
         n = X.shape[0]
         y_reshape = y.reshape(-1, y.shape[1]) # get 2D
         
         y_reshape = y_reshape.nan_to_num()
         
-        
-        ##########    # 
         kd = KernelDensity(bandwidth=self.bw, algorithm='auto', kernel='linear', 
-                           metric="euclidean").fit(y_reshape)  # should be 2D. fit(): fit the kernel density model on the data
+                           metric="euclidean").fit(y_reshape)  
                 
         log_density = kd.score_samples(y_reshape)
         
         each_rate = torch.exp(torch.from_numpy(log_density))
-        #################### 
            
         sum_prob = torch.sum(each_rate)
         each_rate = each_rate / sum_prob   
@@ -76,15 +72,14 @@ class CMixup():
             
         batch_rate = self.rate(y)
         batch_rate = batch_rate.numpy()
-        # print("prob:", batch_rate)
             
         m = len(batch_rate)
         sum_prob = np.sum(batch_rate)
-        j = np.random.choice(m, size=n_seq, p=batch_rate)  #
-        new_X = data[:,j,:]                 #
+        j = np.random.choice(m, size=n_seq, p=batch_rate)  
+        new_X = data[:,j,:]                 
         new_y = y[:,j,:]
-        lam = np.random.beta(self.alpha, self.alpha) #            
-        mixed_X = lam * data + (1 - lam) * new_X   #
+        lam = np.random.beta(self.alpha, self.alpha)            
+        mixed_X = lam * data + (1 - lam) * new_X   
         mixed_y = lam * y + (1 - lam) * new_y
                                 
         return mixed_X , mixed_y

@@ -2,7 +2,7 @@ import numpy as np
 import torch
 
 class Scaling():
-    def __init__(self, mu1:float=1.0, std1:float=0.03) -> None:
+    def __init__(self, mu1:float=1.0, std1:float=0.03) :
         self.mu1 = mu1
         self.std1 = std1
         
@@ -11,7 +11,6 @@ class Scaling():
         noise = np.matmul(np.ones((data.shape[0], 1)), scalar)
         scaling = data * noise
         scaling = scaling.float()
-
         
         return scaling    
     

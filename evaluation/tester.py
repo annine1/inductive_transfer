@@ -414,21 +414,7 @@ class BaseTester(object):
         preds, obs, dates = {}, {}, {}
         losses = []
         with torch.no_grad():
-            for data in loader:
-                ### For augmentation (scaling)
-                # data["x_s"] = torch.cat((data["x_s"], torch.ones_like(data["x_s"][:, 0]).reshape(-1, 1)), dim=1)
-                # data["x_s"] = torch.cat((data["x_s"], torch.zeros_like(data["x_s"][:, 0]).reshape(-1, 1)), dim=1)
-                
-                ### Concatenate x_d with a new column (volume)
-                # volume = torch.tensor(0)
-                # data['x_d'] = torch.cat((data['x_d'], volume.repeat(data["y"].shape[0], data["y"].shape[1], 1)), dim=2)
-                
-                ##### Warming T ####
-                ### Caravan
-                # data["x_d"][:, :, 7:10] = data["x_d"][:, :, 7:10] + float(1)
-                ### Camels-us
-                # data["x_d"][:, :, 5:11] = data["x_d"][:, :, 5:11] + float(1)
-                
+            for data in loader:                                
                 for key in data:
                     if not key.startswith('date'):
                         data[key] = data[key].to(self.device)
