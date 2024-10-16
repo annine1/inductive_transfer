@@ -3,11 +3,10 @@ import numpy as np
 from neuralhydrology.augmentation.utils import stats_values
 from neuralhydrology.utils.config import Config
 from sklearn.neighbors import KernelDensity
-from sklearn.metrics import pairwise_distances
+# from sklearn.metrics import pairwise_distances
 
-# from neuralhydrology.augmentation.dtwdist import DTWD
-import dtaidistance
-from dtaidistance import dtw
+# import dtaidistance
+# from dtaidistance import dtw
 from scipy.spatial.distance import euclidean
 
 
