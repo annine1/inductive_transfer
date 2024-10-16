@@ -181,36 +181,7 @@ class MaskedMSELoss(BaseLoss):
         loss = 0.5 * torch.mean((prediction['y_hat'][mask] - ground_truth['y'][mask])**2)
         return loss
    
-class MaskedMETALoss(BaseLoss):
-    r""" 
-    This loss follows the assumption that more water evaporates at higher temperature.
-    
-    .. math:: \text{L_m} = relu(\widehat{y}_t - y_t),
-    
-    where :math:`\widehat{y}` are the simulations (here, `sim`) and :math:`y` are observations 
-    (here, `obs`).
-    relu: the activaion function
-    
-    To use this loss in a forward pass, the passed `prediction` dict must contain
-    the key ``y_hat``, and the `data` dict must contain ``y`.
-    
-    Parameters
-    ----------
-    cfg : Config
-        The run configuration.
-    -------
-    
-    """
-    
-    def __init__(self, cfg: Config):
-        super(MaskedMETALoss, self).__init__(cfg, prediction_keys=['y_hat'], ground_truth_keys=['y'])
-
-    def _get_loss(self, prediction: Dict[str, torch.Tensor], ground_truth: Dict[str, torch.Tensor], **kwargs):
-        mask = ~torch.isnan(ground_truth['y'])
-        loss = torch.nn.functional.relu(prediction['y_hat'][mask][128:, :, :] - ground_truth['y'][mask][128:, :, :])
-        loss = torch.mean(torch.abs(ground_truth['y'][mask][128:, :, :] - prediction['y_hat'][mask][128:, :, :]))
-        return loss
-
+################
 class MaskedCustomLoss(BaseLoss):
     
     def __init__(self, cfg: Config):
@@ -218,7 +189,7 @@ class MaskedCustomLoss(BaseLoss):
 
     def _get_loss(self, prediction: Dict[str, torch.Tensor], ground_truth: Dict[str, torch.Tensor], **kwargs):
         mask = ~torch.isnan(ground_truth['y'])
-        loss1 = torch.mean(torch.abs(ground_truth['y'][mask][:128] - prediction['y_hat'][mask][:128]))
+        # loss1 = torch.mean(torch.abs(ground_truth['y'][mask][:128] - prediction['y_hat'][mask][:128]))
         loss1 = torch.nn.functional.relu(prediction['y_hat'][mask][:128] - ground_truth['y'][mask][:128])
         loss2 = 0.5 * torch.mean((prediction['y_hat'][mask][128:] - ground_truth['y'][mask][128:])**2)
         loss = loss1 + loss2
