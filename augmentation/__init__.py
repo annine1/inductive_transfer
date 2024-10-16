@@ -1,7 +1,6 @@
 
-from neuralhydrology.augmentation.mixup import Mixup
+from neuralhydrology.augmentation.cmixup import CMixup
 from neuralhydrology.augmentation.noise import Noise
-# from neuralhydrology.augmentation.windowwarp import WindowWarp
 
 from neuralhydrology.utils.config import Config
 
@@ -31,12 +30,11 @@ def get_augment(cfg: Config ):
     #if cfg.augment.lower() != "mixu" and cfg.mass_inputs:
     #    raise ValueError(f"The use of 'mass_inputs' with {cfg.augment} is not supported.")
 
-    if cfg.augment.lower() == "mixup":
-        augment = Mixup(cfg=cfg)
+    if cfg.augment.lower() == "cmixup":
+        augment = CMixup(cfg=cfg)
     elif cfg.augment.lower() == "noise":
         augment = Noise(cfg=cfg)    
-    # elif cfg.augment.lower() == "windowwarp":
-        # augment = WindowWarp(cfg=cfg)
+    
     else:
         raise NotImplementedError(f"{cfg.augment} not implemented or not linked in `get_augment()`")
 

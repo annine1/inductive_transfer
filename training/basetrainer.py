@@ -302,29 +302,29 @@ class BaseTrainer(object):
         # Iterate in batches over training set
         nan_count = 0
         for data in pbar:
-            ### augmentations ####        
+            ### add augmentations here ####        
             ## noise #
             data['x_d'] = noise_aug.call(data['x_d'])
             data['x_s'] = noise_aug.call(data['x_s'])                       
             
-            ### CMixup ##
-            data["x_d"], data["y"] = cmixup_aug.call(data["x_d"], data["y"]) 
-            data["x_s"] = cmixup_aug.callxs(data["x_s"], data["y"])  
+            # ### CMixup ##
+            # data["x_d"], data["y"] = cmixup_aug.call(data["x_d"], data["y"]) 
+            # data["x_s"] = cmixup_aug.callxs(data["x_s"], data["y"])  
             
-            ### Scaling ##
-            data['x_d'] = scaling.call(data['x_d'])
-            data['y'] = scaling.call(data['y'])
-            data['x_s'] = scaling.callxs(data['x_s'])                       
+            # ### Scaling ##
+            # data['x_d'] = scaling.call(data['x_d'])
+            # data['y'] = scaling.call(data['y'])
+            # data['x_s'] = scaling.callxs(data['x_s'])                       
            
-            ### MBB ##
-            data['x_d'] = movingbb.call(data['x_d'])
-            data['y'] = movingbb.call(data['y'])
-            data['x_s'] = movingbb.call(data['x_s'])                                 
+            # ### MBB ##
+            # data['x_d'] = movingbb.call(data['x_d'])
+            # data['y'] = movingbb.call(data['y'])
+            # data['x_s'] = movingbb.call(data['x_s'])                                 
                        
-            ### Taskaug ##       
-            # Randomly add 1, 2, or 3 degree to the temperatures
-            data["x_d"][:128] = addtemp.call(data["x_d"][:128]) # Caravan
-            data["x_d"][:128] = addtemp.call_us(data["x_d"][:128])  #CAMEL-US           
+            # ### Taskaug ##       
+            # # Randomly add 1, 2, or 3 degree to the temperatures
+            # data["x_d"][:128] = addtemp.call(data["x_d"][:128]) # Caravan
+            # data["x_d"][:128] = addtemp.call_us(data["x_d"][:128])  #CAMEL-US           
                    
             for key in data.keys():
                 if not key.startswith('date'):
