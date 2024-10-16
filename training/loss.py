@@ -181,7 +181,6 @@ class MaskedMSELoss(BaseLoss):
         loss = 0.5 * torch.mean((prediction['y_hat'][mask] - ground_truth['y'][mask])**2)
         return loss
    
-################
 class MaskedCustomLoss(BaseLoss):
     
     def __init__(self, cfg: Config):
@@ -194,8 +193,6 @@ class MaskedCustomLoss(BaseLoss):
         loss2 = 0.5 * torch.mean((prediction['y_hat'][mask][128:] - ground_truth['y'][mask][128:])**2)
         loss = loss1 + loss2
         return loss
-   
-##################
 
 class MaskedRMSELoss(BaseLoss):
     """Root mean squared error loss.
