@@ -2,7 +2,7 @@
 
 ## Repository content
 
-## Configuration required
+## Required configuration 
 
 ## Model training and evaluation
 
