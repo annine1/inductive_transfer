@@ -18,9 +18,9 @@ The code in this repository was utilized to generate all the results presented i
 Follow the following steps for model training/inference/evaluation:\
 1. Activate the conda envvironent\
 `conda activate pytorch`
-2. Training start\
+2. Begin training\
 `nh-run train --config-file config.yml`
-3. Inference/evaluation start\
+3. Begin inference/evaluation \
 `nh-run evaluate --run-dir <run directory>`
 <!-- ## Contact -->
 
