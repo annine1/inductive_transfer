@@ -688,17 +688,6 @@ class Config(object):
         else:
             return []
     
-    # @property
-    # def static_attributes1(self) -> List[str]:
-    #     if "static_attributes1" in self._cfg.keys():
-    #         return self._as_default_list(self._cfg["static_attributes1"])
-    #     elif "camels_attributes" in self._cfg.keys():
-    #         warnings.warn("'camels_attributes' will be deprecated. Use 'static_attributes1' in the future",
-    #                       FutureWarning)
-    #         return self._as_default_list(self._cfg["camels_attributes"])
-    #     else:
-    #         return []    
-
     @property
     def statics_embedding(self) -> bool:
         embedding_spec = self._cfg.get("statics_embedding", None)
@@ -740,10 +729,6 @@ class Config(object):
     def test_basin_file(self) -> Path:
         return self._get_value_verbose("test_basin_file")
     
-    # @property
-    # def test_basin_file1(self) -> Path:
-    #     return self._get_value_verbose("test_basin_file1")
-    
     @property
     def test_end_date(self) -> pd.Timestamp:
         return self._get_value_verbose("test_end_date")
@@ -756,10 +741,6 @@ class Config(object):
     def train_basin_file(self) -> Path:
         return self._get_value_verbose("train_basin_file")
     
-    # @property
-    # def train_basin_file1(self) -> Path:
-    #     return self._get_value_verbose("train_basin_file1")
-
     @property
     def train_data_file(self) -> Path:
         return self._cfg.get("train_data_file", None)
@@ -812,18 +793,7 @@ class Config(object):
 
     @validate_n_random_basins.setter
     def validate_n_random_basins(self, n_basins: int):
-        self._cfg["validate_n_random_basins"] = n_basins
-        
-    # @property
-    # def validate_n_random_basins1(self) -> int:
-    #     if (self._cfg.get("validate_n_random_basins1", None) is None) or (self._cfg["validate_n_random_basins1"] < 1):
-    #         return 0
-    #     else:
-    #         return self._cfg["validate_n_random_basins1"]
-
-    # @validate_n_random_basins1.setter
-    # def validate_n_random_basins1(self, n_basins: int):
-    #     self._cfg["validate_n_random_basins1"] = n_basins    
+        self._cfg["validate_n_random_basins"] = n_basins       
 
     @property
     def validation_basin_file(self) -> Path:
